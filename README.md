@@ -1,5 +1,8 @@
 ## YugaRecipes
 
+<img width="1135" alt="app_screenshot" src="https://github.com/YugabyteDB-Samples/yugarecipes/assets/2041330/1bcdec08-b11c-4a58-900a-e136070202a8">
+
+
 ## Files of note in this project
 
 **cuisines.csv** holds original dataset of recipes
