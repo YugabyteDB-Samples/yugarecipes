@@ -2,13 +2,6 @@
 
 <img width="1135" alt="app_screenshot" src="https://github.com/YugabyteDB-Samples/yugarecipes/assets/2041330/1bcdec08-b11c-4a58-900a-e136070202a8">
 
-
-## Files of note in this project
-
-**cuisines.csv** holds original dataset of recipes
-**generate_description_embeddings.py** generates embeddings for _cuisines.csv_ descriptions and outputs _output_with_embeddings.csv_
-**server.py** API for querying database and serving static files
-
 ## Prerequisites
 
 - Install Python 3+
