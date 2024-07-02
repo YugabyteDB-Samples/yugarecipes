@@ -42,11 +42,8 @@ def search():
         print(image_file)
         image_description = describe_image(image_file)
         print(f"this is the image description: {image_description}")
-        # return jsonify({'error': 'No image file provided'}), 400
     else: 
         print("no image provided")
-        
-    # image = Image.open(image_file.stream)
 
     data = request.form.get('data')
     if data and 'query' in data:
@@ -71,8 +68,7 @@ def search():
     try:
         conn = get_db_connection()
         cursor = conn.cursor()
-
-        # Assuming there's a table named 'items' with a column 'name'
+        
         cursor.execute("SELECT id, name, description, instructions, image_url FROM recipes ORDER BY embeddings <=> %s::vector  LIMIT 10", (embedding,))
         results = cursor.fetchall()
 

@@ -11,7 +11,7 @@ csv_path = './database/cuisines.csv'
 df = pd.read_csv(csv_path)
 
 # Generate embeddings for each description in the CSV
-df['embeddings'] = df['description'][:5].apply(generate_embedding, args=(True,))
+df['embeddings'] = df['description'].apply(generate_embedding, args=(True,))
 
 # Save the DataFrame with embeddings to a new CSV file
 output_csv_path = './database/output_with_embeddings_openai.csv'
