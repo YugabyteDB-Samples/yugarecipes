@@ -52,7 +52,7 @@ docker run -d --name yugabytedb-node3 --net custom-network \
     --base_dir=/home/yugabyte/yb_data --background=false
 ```
 
-The database connectivity settings are provided in the `{project_dir}/.env` file and do not need to be changed if you started the cluster with the preceding command.
+The database connectivity settings are provided in the `.env` file and do not need to be changed if you started the cluster with the preceding command.
 
 ## Load the schema and seed data
 
@@ -60,19 +60,23 @@ This application requires a database table with information about news stories. 
 
 ### PostgreSQL
 
-1. Copy the schema to the first node's Docker container.
+1. Make database directory.
+   ```sh
+   docker exec -it postgres mkdir /home/database
+   ```
+2. Copy the schema to the first node's Docker container.
 
    ```sh
-   docker cp {project_dir}/database/schema.sql postgres:/home/database
+   docker cp database/schema.sql postgres:/home/database
    ```
 
-2. Copy the seed data file to the Docker container.
+3. Copy the seed data file to the Docker container.
 
    ```sh
-   docker cp {project_dir}/output_with_embeddings.csv postgres:/home/database
+   docker cp database/output_with_embeddings.csv postgres:/home/database
    ```
 
-3. Execute the SQL files against the database.
+4. Execute the SQL files against the database.
 
    ```sh
    docker exec -it postgres bin/psql -U postgres -f /home/database/schema.sql
@@ -81,19 +85,23 @@ This application requires a database table with information about news stories. 
 
 ### YugabyteDB
 
-1. Copy the schema to the first node's Docker container.
+1. Make database directory.
+   ```sh
+   docker exec -it yugabytedb-node1 mkdir /home/database
+   ```
+2. Copy the schema to the first node's Docker container.
 
    ```sh
-   docker cp {project_dir}/database/schema.sql yugabytedb_node1:/home/database
+   docker cp database/schema.sql yugabytedb-node1:/home/database/
    ```
 
-2. Copy the seed data file to the Docker container.
+3. Copy the seed data file to the Docker container.
 
    ```sh
-   docker cp {project_dir}/output_with_embeddings.csv yugabytedb_node1:/home/database
+   docker cp database/output_with_embeddings.csv yugabytedb-node1:/home/database/
    ```
 
-3. Execute the SQL files against the database.
+4. Execute the SQL files against the database.
    ```sh
    docker exec -it yugabytedb-node1 bin/ysqlsh -h yugabytedb-node1 -f /home/database/schema.sql
    docker exec -it yugabytedb-node1 bin/ysqlsh -h yugabytedb-node1 -c "\COPY recipes(name,image_url,description,cuisine,course,diet,prep_time,ingredients,instructions,embeddings) from '/home/database/output_with_embeddings.csv' DELIMITER ',' CSV HEADER;"
@@ -109,7 +117,7 @@ This application is comprised of a Flask API Server and a React Frontend.
    ```
    python -m venv venv
    source venv/bin/activate
-   pip install -r requirements.txt
+   pip install -r ../requirements.txt
    ```
 2. Start the server.
    ```

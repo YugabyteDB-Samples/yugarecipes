@@ -14,7 +14,7 @@ df = pd.read_csv(csv_path)
 df['embeddings'] = df['description'].apply(generate_embedding, args=(True,))
 
 # Save the DataFrame with embeddings to a new CSV file
-output_csv_path = './database/output_with_embeddings_openai.csv'
+output_csv_path = './database/output_with_embeddings.csv'
 df.to_csv(output_csv_path, index=False)
 
 print(f"Embeddings generated and saved to {output_csv_path}")
